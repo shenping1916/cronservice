@@ -26,7 +26,7 @@
 
 ##### 截图：
 ###### 节点首次运行，从数据库加载所有任务
-![Alt text](https://github.com/shenping1916/cronservice/blob/master/images/1537935279389.jpg)
+![Alt text](https://github.com/shenping1916/cronservice/blob/master/images/1537935574288.jpg)
 
 ![Alt text](https://github.com/shenping1916/cronservice/blob/master/images/1537934583881.jpg)
 
