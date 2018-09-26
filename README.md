@@ -28,6 +28,9 @@
 ###### 节点首次运行，从数据库加载所有任务
 ![Alt text](https://github.com/shenping1916/cronservice/blob/master/images/1537934583881.jpg)
 
+###### 节点收到redis订阅消息
+![Alt text](https://github.com/shenping1916/cronservice/blob/master/images/1537934876826.jpg)
+
 ###### 任务争抢`redis`锁，拿到锁的节点运行定时任务
 ![Alt text](https://github.com/shenping1916/cronservice/blob/master/images/1537933646132.jpg)
   
