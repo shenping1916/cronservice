@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package pb;
+import "cron_request.proto";
+import "cron_response.proto";
+
+service CronService {
+    // 定时任务注册
+    rpc RegisterTask(RegisterReq) returns (stream RegisterResp) {}
+
+    // 删除指定定时任务
+    rpc DelTask(DelTaskReq) returns (stream DelTaskResp) {}
+
+    // 定时任务暂停
+    rpc PauseTask(PauseTaskReq) returns (stream PauseTaskResp) {}
+
+    // 定时任务恢复
+    rpc RestoreTask(RestoreTaskReq) returns (stream RestoreTaskResp) {}
+
+    // 查询指定定时任务 或者 所有定时任务
+    // 带task_name，返回指定定时任务查询结果
+    // 否则返回所有定时任务结果
+    rpc GetTask(GetTaskReq) returns (stream GetTaskResp) {}
+
+    // 修改定时任务
+    rpc MotifyTask(MotifyTaskReq) returns (stream MotifyTaskResp) {}
+}

@@ -1,0 +1,34 @@
+{
+  "env": "dev",
+  "baseCfg": {
+    "etcdCfg": {
+      "EndPoints": ["http://127.0.0.1:2379"],
+      "User": "iceberg",
+      "Psw": "123456",
+      "Timeout": 3
+    },
+    "zipkinCfg": {
+      "EndPoints": ""
+    },
+    "staffCfg": {
+      "name": "",
+      "email": "",
+      "mobile": ""
+    }
+  },
+  "mysqlCfg": {
+    "Host": {
+      "read": "localhost",
+      "write": "localhost"
+    },
+    "Port": 3306,
+    "User": "root",
+    "Psw": "BER3ZRdw3wGMn5N5",
+    "DbName": "cronservice"
+  },
+  "redisCfg": {
+    "Addr": "127.0.0.1:6379",
+    "Psw": "",
+    "DBNo": 0
+  }
+}

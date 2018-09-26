@@ -1,0 +1,124 @@
+package base
+
+import (
+	mathrand "math/rand"
+	"crypto/dsa"
+	"crypto/rand"
+	"math/big"
+)
+
+const (
+	letterBytes = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+)
+
+const (
+	letterIdxBits = 6
+	letterIdxMask = 1<<letterIdxBits - 1
+	letterIdxMax  = 63 / letterIdxBits
+)
+
+var parm dsa.Parameters
+
+func init() {
+	dsa.GenerateParameters(&parm, rand.Reader, dsa.L1024N160)
+}
+
+type Action interface {
+	GetRandString(n int) string
+	GeneratePrivatekey() dsa.PrivateKey
+	GeneratePublicWithPrivatekey() dsa.PublicKey
+}
+
+//type Self struct {
+//	N int
+//	RR *big.Int
+//	SS *big.Int
+//	Action  Action
+//}
+//
+//func NewSelf(n int, a Action) *Self {
+//	return &Self{
+//		N: n,
+//		Action: a,
+//	}
+//}
+//
+//// 签名
+//func (s *Self) SignatureWithPrivatekey() []byte {
+//	rand_string := s.Action.GetRandString(s.N)
+//	private_key := s.Action.GeneratePrivatekey()
+//	msg := StringToBytes(rand_string)
+//	rr, ss, _ := dsa.Sign(rand.Reader, &private_key, msg)
+//
+//	s.RR = rr
+//	s.SS = ss
+//
+//	return msg
+//}
+//
+//// 验签
+//func (s *Self) CheckSignature(msg []byte) bool {
+//	public_key := s.Action.GeneratePublicWithPrivatekey()
+//	ok := dsa.Verify(&public_key, msg, s.RR, s.SS)
+//	if ok {
+//		return true
+//	}
+//
+//	return false
+//}
+
+// 签名
+func SignatureWithPrivatekey(n int, a Action) ([]byte, *big.Int, *big.Int) {
+	rand_string := a.GetRandString(n)
+	private_key := a.GeneratePrivatekey()
+	msg := StringToBytes(rand_string)
+	rr, ss, _ := dsa.Sign(rand.Reader, &private_key, msg)
+
+	return msg, rr, ss
+}
+
+// 验签
+func CheckSignature(msg []byte, a Action, rr,ss *big.Int) bool {
+	public_key := a.GeneratePublicWithPrivatekey()
+	ok := dsa.Verify(&public_key, msg, rr, ss)
+	if ok {
+		return true
+	}
+
+	return false
+}
+
+type Handle struct {
+}
+
+func (h *Handle) GetRandString(n int) string {
+	b := make([]byte, n)
+	// A rand.Int63() generates 63 random bits, enough for letterIdxMax letters!
+	for i, cache, remain := n-1, mathrand.Int63(), letterIdxMax; i >= 0; {
+		if remain == 0 {
+			cache, remain = mathrand.Int63(), letterIdxMax
+		}
+		if idx := int(cache & letterIdxMask); idx < len(letterBytes) {
+			b[i] = letterBytes[idx]
+			i--
+		}
+		cache >>= letterIdxBits
+		remain--
+	}
+
+	return BytesToString(b)
+}
+
+func (h *Handle) GeneratePrivatekey() dsa.PrivateKey {
+	var priv dsa.PrivateKey
+	priv.Parameters = parm
+	dsa.GenerateKey(&priv, rand.Reader)
+
+	return priv
+}
+
+func (h *Handle) GeneratePublicWithPrivatekey()  dsa.PublicKey {
+	return h.GeneratePrivatekey().PublicKey
+}
+
+

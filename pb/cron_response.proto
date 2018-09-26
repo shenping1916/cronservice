@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package pb;
+
+// 定时任务注册(响应)
+message RegisterResp {
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool data = 3;
+}
+
+// 删除指定定时任务(响应)
+message DelTaskResp {
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool data = 3;
+}
+
+// 定时任务暂停(响应)
+message PauseTaskResp {
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool data = 3;
+}
+
+// 定时任务恢复(响应)
+message RestoreTaskResp {
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool data = 3;
+}
+
+// 查询定时任务(响应)
+message GetTaskResp {
+    int32 errcode = 1;
+    string errmsg = 2;
+    repeated Data data = 3;
+    message Data {
+        int64 id = 1;
+        string task_name = 2;
+        string time_format = 3;
+        string service_url = 4;
+        string service_method = 5;
+        string service_header = 6;
+        string service_body = 7;
+        int32 status = 8;
+        string task_desc = 9;
+        string create_time = 10;
+        string update_time = 11;
+    }
+}
+
+// 修改定时任务(响应)
+message MotifyTaskResp {
+    int32 errcode = 1;
+    string errmsg = 2;
+    bool data = 3;
+}

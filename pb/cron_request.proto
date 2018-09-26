@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package pb;
+
+// 定时任务注册(请求)
+message RegisterReq {
+    string task_name = 1;                      // 定时任务名字
+    string time_format = 2;                    // 时间格式
+    string service_url = 3;                    // 路由
+    string service_method = 4;                 // 被调用方方法名
+    string method = 5;                         // http方法名
+    string service_header = 6;                 // header头
+    string form = 7;                           // form
+    string service_body = 8;                   // body
+    string task_desc = 9;                      // 任务描述
+}
+
+// 删除指定定时任务(请求)
+message DelTaskReq {
+    string task_name = 1;         // 定时任务名字
+}
+
+// 定时任务暂停(请求)
+message PauseTaskReq {
+    string task_name = 1;         // 定时任务名字
+}
+
+// 定时任务恢复(请求)
+message RestoreTaskReq {
+    string task_name = 1;         // 定时任务名字
+}
+
+// 查询定时任务(请求)
+message GetTaskReq {
+    string task_name = 1;         // 定时任务名字
+}
+
+// 修改定时任务(请求)
+message MotifyTaskReq {
+    string task_name = 1;                      // 定时任务名字
+    string time_format = 2;                    // 时间格式
+    string service_url = 3;                    // 路由
+    string service_method = 4;                 // 被调用方方法名
+    string method = 5;                         // http方法名
+    string service_header = 6;                 // header头
+    string form = 7;                           // form
+    string service_body = 8;                   // body
+    string task_desc = 9;                      // 任务描述
+}
